@@ -13,7 +13,7 @@ services:
     environment:
       CMD_DB_URL: mysql://codimd:codimd@mariadb:3306/codimd
       CMD_ALLOW_EMAIL_REGISTER: "false"
-      CMD_DOMAIN: codimd.yr32.net
+      CMD_DOMAIN: ${HOSTNAME}
 
     volumes:
       - type: volume
@@ -63,7 +63,7 @@ services:
     environment:
       TUNNEL_METRICS: 0.0.0.0:9126
       TUNNEL_URL: http://codimd:3000
-      TUNNEL_HOSTNAME: codimd.yr32.net
+      TUNNEL_HOSTNAME: ${HOSTNAME}
       TUNNEL_LOGFILE: /dev/stdout
 
     command: tunnel
