@@ -14,6 +14,8 @@ services:
       CMD_DB_URL: mysql://codimd:codimd@mariadb:3306/codimd
       CMD_ALLOW_EMAIL_REGISTER: "false"
       CMD_DOMAIN: ${HOSTNAME}
+      CMD_PROTOCOL_USESSL: "true"
+      CMD_AUTO_VERSION_CHECK: "false"
 
     volumes:
       - type: volume
