@@ -20,6 +20,11 @@ services:
         source: codimd_data
         target: /home/hackmd/app/public/uploads
 
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+
     networks:
       codimd_cloudflared:
       mariadb_codimd:
@@ -40,6 +45,11 @@ services:
       - type: volume
         source: mariadb_data
         target: /var/lib/mysql
+
+    deploy:
+      resources:
+        limits:
+          memory: 512m
 
     networks:
       mariadb_codimd:
@@ -64,6 +74,11 @@ services:
         source: /etc/cloudflared/cert.pem
         target: /etc/cloudflared/cert.pem
         read_only: true
+
+    deploy:
+      resources:
+        limits:
+          memory: 128m
 
     networks:
       codimd_cloudflared:
