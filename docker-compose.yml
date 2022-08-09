@@ -1,0 +1,96 @@
+version: '3.8'
+
+services:
+  codimd:
+    image: hackmdio/hackmd:2.4.2-cjk
+    hostname: codimd
+    container_name: codimd__codimd
+    restart: unless-stopped
+
+    depends_on:
+      - mariadb
+
+    environment:
+      CMD_DB_URL: mysql://codimd:codimd@mariadb:3306/codimd
+      CMD_ALLOW_EMAIL_REGISTER: "false"
+      CMD_DOMAIN: codimd.yr32.net
+
+    volumes:
+      - type: volume
+        source: codimd_data
+        target: /home/hackmd/app/public/uploads
+
+    networks:
+      codimd_cloudflared:
+      mariadb_codimd:
+
+  mariadb:
+    image: mariadb:10.8.3
+    hostname: mariadb
+    container_name: codimd__mariadb
+    restart: unless-stopped
+
+    environment:
+      MYSQL_ROOT_PASSWORD: codimd
+      MYSQL_USER: codimd
+      MYSQL_PASSWORD: codimd
+      MYSQL_DATABASE: codimd
+
+    volumes:
+      - type: volume
+        source: mariadb_data
+        target: /var/lib/mysql
+
+    networks:
+      mariadb_codimd:
+
+  cloudflared:
+    image: cloudflare/cloudflared:2022.7.1
+    hostname: cloudflared
+    container_name: codimd__cloudflared
+    restart: unless-stopped
+
+    environment:
+      TUNNEL_METRICS: 0.0.0.0:9126
+      TUNNEL_URL: http://codimd:3000
+      TUNNEL_HOSTNAME: codimd.yr32.net
+      TUNNEL_LOGFILE: /dev/stdout
+
+    command: tunnel
+    user: root
+
+    volumes:
+      - type: bind
+        source: /etc/cloudflared/cert.pem
+        target: /etc/cloudflared/cert.pem
+        read_only: true
+
+    networks:
+      codimd_cloudflared:
+      cloudflared_internet:
+      prometheus__cloudflared:
+        aliases:
+          - codimd__cloudflared
+
+networks:
+  prometheus__cloudflared:
+    name: prometheus__cloudflared
+    external: true
+
+  cloudflared_internet:
+    name: codimd__cloudflared_internet
+
+  codimd_cloudflared:
+    name: codimd__codimd_cloudflared
+    internal: true
+
+  mariadb_codimd:
+    name: codimd__mariadb_codimd
+    internal: true
+
+volumes:
+  codimd_data:
+    name: codimd__codimd_data
+
+  mariadb_data:
+    name: codimd__mariadb_data
