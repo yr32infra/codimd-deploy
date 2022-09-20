@@ -32,7 +32,7 @@ services:
       mariadb_codimd:
 
   mariadb:
-    image: mariadb:10.9.2
+    image: mariadb:10.9.3
     hostname: mariadb
     container_name: codimd__mariadb
     restart: unless-stopped
