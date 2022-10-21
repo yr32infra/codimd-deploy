@@ -57,7 +57,7 @@ services:
       mariadb_codimd:
 
   cloudflared:
-    image: cloudflare/cloudflared:2022.8.0
+    image: cloudflare/cloudflared:2022.10.2
     hostname: cloudflared
     container_name: codimd__cloudflared
     restart: unless-stopped
