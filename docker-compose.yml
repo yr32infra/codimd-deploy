@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   codimd:
-    image: hackmdio/hackmd:2.4.2-cjk
+    image: hackmdio/hackmd:2.4.2-cjk@sha256:c79ce3277c9fdeb1b997aa86df773ba3b897f5810a1b17632101c3ea4326c7db
     hostname: codimd
     container_name: codimd__codimd
     restart: unless-stopped
@@ -57,7 +57,7 @@ services:
       mariadb_codimd:
 
   cloudflared:
-    image: cloudflare/cloudflared:2023.1.0
+    image: cloudflare/cloudflared:2023.1.0@sha256:11101e453ddcd33b7c2175de701c3d29c11b401fe14b74e6c8f371d65fe7558a
     hostname: cloudflared
     container_name: codimd__cloudflared
     restart: unless-stopped
