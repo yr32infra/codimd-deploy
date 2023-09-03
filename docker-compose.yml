@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   codimd:
-    image: hackmdio/hackmd:2.4.2-cjk@sha256:c79ce3277c9fdeb1b997aa86df773ba3b897f5810a1b17632101c3ea4326c7db
+    image: hackmdio/hackmd:2.4.2-cjk@sha256:659d5a4c1ae50d9a83cf911f7ff5f80f3055a6ab5d461d6aa7c13b0ecec37e24
     hostname: codimd
     container_name: codimd__codimd
     restart: unless-stopped
