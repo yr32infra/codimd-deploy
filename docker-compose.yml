@@ -32,7 +32,7 @@ services:
       mariadb_codimd:
 
   mariadb:
-    image: mariadb:11.2.3@sha256:65c0c44bc4754bd03dc17396328f2adae8f156ebe6ec1edb928386886654785e
+    image: mariadb:11.2.3@sha256:d8712399b49ae013397b4f9a6657a8044218e02fcdd8f28c52b1bba9d9dfe1a6
     hostname: mariadb
     container_name: codimd__mariadb
     restart: unless-stopped
